@@ -20,9 +20,9 @@ export default defineConfig(() => {
       pigment(pigmentConfig),
       react()
     ],
-    // server: {
-    //   port: 3000,
-    // },
+    server: {
+      port: 3000,
+    },
     base: APP_BASE_URL,
     build: {
       outDir: 'dist',

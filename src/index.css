@@ -1,0 +1,19 @@
+body {
+    background: linear-gradient(135deg, #20bff6, #2ecc71);
+    background-size: 200% 200%; /* Makes the gradient larger to create the wave flow */
+    animation: flowEffect 8s ease-in-out infinite; /* Smooth infinite flow animation */
+    height: 100vh;
+    margin: 0;
+  }
+
+  @keyframes flowEffect {
+    0% {
+      background-position: 0% 50%; /* Start position */
+    }
+    50% {
+      background-position: 100% 50%; /* Midway (flow to the other side) */
+    }
+    100% {
+      background-position: 0% 50%; /* Loop back to the start */
+    }
+  }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ExampleComponent from './components/ExampleComponent';
+import './index.css';
 
 const App: React.FC = () => {
   return (
