@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build-web": "export APP_BASE_URL=/tileio/ && vite build",
+    "build-web": "export APP_BASE_URL=/modelio/ && vite build",
     "build": "vite build",
     "serve": "vite preview"
   },
