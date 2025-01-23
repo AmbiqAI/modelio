@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [$default-branch]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: NPM w/ cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+      - name: Install and Build 🔧
+        env:
+          CI: ""
+          PUBLIC_URL: "${{ steps.pages.outputs.base_url }}/"
+          APP_BASE_URL: "${{ steps.pages.outputs.base_path }}/"
+        run: |
+          echo "PUBLIC_URL=${PUBLIC_URL}"
+          echo "APP_BASE_URL=${APP_BASE_URL}"
+          npm install
+          npm run build-web
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4
